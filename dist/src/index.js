@@ -8,6 +8,9 @@ const GameManager_1 = __importDefault(require("./GameManager"));
 const express = require("express");
 const app = express();
 const httpServer = app.listen(6969);
+httpServer.get("/", (req, res) => {
+    res.send("/");
+});
 const wss = new ws_1.WebSocketServer({ noServer: true });
 const gameManager = new GameManager_1.default();
 console.log("Server Started");

@@ -6,6 +6,9 @@ const express = require("express")
 
 const app = express()
 const httpServer = app.listen(6969)
+httpServer.get("/",(req:any,res:any)=>{
+    res.send("/")
+})
 const wss = new WebSocketServer({ noServer:true});
 const gameManager = new GameManager();
 console.log("Server Started")
