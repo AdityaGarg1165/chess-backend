@@ -17,6 +17,9 @@ class GameManager {
     this.addHandler(user);
   }
   removeUser(socket: WebSocket) {
+    if(this.pendingUser === socket){
+      this.pendingUser = null;
+    }
     this.users = this.users.filter((user) => user!== socket);
 }  
 private addHandler(socket: WebSocket) {
