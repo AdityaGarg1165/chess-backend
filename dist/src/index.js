@@ -15,8 +15,10 @@ const wss = new ws_1.WebSocketServer({ noServer: true });
 const gameManager = new GameManager_1.default();
 console.log("Server Started");
 wss.on("connection", (ws) => {
+    console.log("connected");
     gameManager.addUser(ws);
 });
 wss.on("close", (ws) => {
+    console.log("Disconnected");
     gameManager.removeUser(ws);
 });
