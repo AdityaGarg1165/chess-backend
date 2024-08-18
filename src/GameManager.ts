@@ -37,7 +37,16 @@ private addHandler(socket: WebSocket) {
       }
 
     }
-    if (data.type === "join_game") {}
+    if (data.type === "exchange") {
+      const image = data.image
+      const game = this.games.find((game) => game.players1 === socket || game.players2 === socket);
+      if(game?.players1 === socket){
+        game.players2.send(JSON.stringify({type:"pfp",image:image}))
+      }
+      else{
+        game?.players1.send(JSON.stringify({type:"pfp",image:image}))
+      }
+    }
     if (data.type === MOVE) {
       const game = this.games.find((game) => game.players1 === socket || game.players2 === socket);
       if(game) {

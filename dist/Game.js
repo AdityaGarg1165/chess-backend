@@ -31,6 +31,15 @@ class Game {
         }
         if (this.board.isGameOver()) {
             console.log("game over");
+            if (this.moveCount % 2 === 0) {
+                this.players2.send(JSON.stringify({ type: socketMessages_1.MOVE, payload: moveObject, turn: this.moveCount }));
+                // this.players1.send(JSON.stringify({type:MOVE,payload:moveObject,turn:this.moveCount}));
+            }
+            else {
+                this.players1.send(JSON.stringify({ type: socketMessages_1.MOVE, payload: moveObject, turn: this.moveCount }));
+                // this.players2.send(JSON.stringify({type:MOVE,payload:moveObject,turn:this.moveCount}));
+            }
+            this.moveCount++;
             this.players1.send(JSON.stringify({ type: socketMessages_2.GAME_OVER,
                 payload: {
                     winner: this.board.turn() === "w" ? "b" : "w"

@@ -34,7 +34,16 @@ class GameManager {
                     this.pendingUser = socket;
                 }
             }
-            if (data.type === "join_game") { }
+            if (data.type === "exchange") {
+                const image = data.image;
+                const game = this.games.find((game) => game.players1 === socket || game.players2 === socket);
+                if ((game === null || game === void 0 ? void 0 : game.players1) === socket) {
+                    game.players2.send(JSON.stringify({ type: "pfp", image: image }));
+                }
+                else {
+                    game === null || game === void 0 ? void 0 : game.players1.send(JSON.stringify({ type: "pfp", image: image }));
+                }
+            }
             if (data.type === socketMessages_1.MOVE) {
                 const game = this.games.find((game) => game.players1 === socket || game.players2 === socket);
                 if (game) {

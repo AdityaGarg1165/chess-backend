@@ -38,6 +38,16 @@ makeMove(socket:WebSocket,moveObject:{from:string,to:string}){
 
   if (this.board.isGameOver()){
     console.log("game over")
+    if(this.moveCount % 2 === 0){
+      this.players2.send(JSON.stringify({type:MOVE,payload:moveObject,turn:this.moveCount}));
+      // this.players1.send(JSON.stringify({type:MOVE,payload:moveObject,turn:this.moveCount}));
+    }
+    else{
+      this.players1.send(JSON.stringify({type:MOVE,payload:moveObject,turn:this.moveCount}));
+      // this.players2.send(JSON.stringify({type:MOVE,payload:moveObject,turn:this.moveCount}));
+      
+    }
+    this.moveCount++;
     this.players1.send(JSON.stringify(
       {type:GAME_OVER,
         payload:{
